@@ -1,0 +1,31 @@
+{
+  "name": "mip-sw",
+  "version": "1.0.0",
+  "description": "service worker for mip page",
+  "main": "mip-sw.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node examples/dev-server.js",
+    "build": "node build/build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mipengine/mip-sw.git"
+  },
+  "keywords": [
+    "mip",
+    "service worker",
+    "mip-sw"
+  ],
+  "author": "mj (zoumiaojiang@gmail.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mipengine/mip-sw/issues"
+  },
+  "homepage": "https://github.com/mipengine/mip-sw#readme",
+  "devDependencies": {
+    "express": "^4.16.4",
+    "fs-extra": "^7.0.0",
+    "uglify-js": "^3.4.9"
+  }
+}

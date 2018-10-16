@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html mip>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,
+  width=device-width,initial-scale=1"/>
+  <title>蓝犀牛搬家</title>
+  <link rel="canonical" href="https://www.lanxiniu.com/userapp/indexWapForBaidu"/>
+  <link rel="stylesheet" href="https://c.mipcdn.com/static/v2/mip.css"/>
+  <style mip-custom>
+    .orders {
+      height: 100%;
+    }
+    #sidebar {
+      margin-top: 44px;
+      width: 3.2rem;
+    }
+
+    .slider-ul li {
+      padding-left: .4425rem;
+    }
+
+    .slider-ul li a {
+      padding: .3rem 0;
+      display: inline-block;
+      width: 100%;
+    }
+
+    .slider-ul li:first-child p {
+      padding-top: .8rem;
+      padding-bottom: .86rem;
+    }
+
+    .slider-ul li span:last-child {
+      position: relative;
+      top: -.07rem;
+      font-size: .28rem;
+      color: #333333;
+      letter-spacing: 0;
+      margin-left: .1rem;
+    }
+
+
+    #username{
+      max-width: 64%;
+      display: inline-block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .myorder {
+      padding: .3rem 0;
+      width: 100%;
+    }
+
+    .call {
+      position: absolute;
+      bottom: 1rem;
+      font-size: .28rem;
+    }
+
+    .call-img {
+      display: inline-block;
+      width: .34rem;
+      height: .34rem;
+      background: url('/i/s/www.lanxiniu.com/Public/baidumip/call.png');
+      background-size: .34rem .34rem;
+      position: relative;
+      top: .05rem;
+    }
+
+    .call .text {
+      display: inline-block;
+      padding-left: .11rem;
+      color: #36A0E9 !important;
+    }
+
+    .call .times {
+      padding-left: .51rem;
+      padding-top: .05rem;
+      font-size: .24rem;
+      color: #666666;
+    }
+
+    /*时间组件*/
+    .picker-mask {
+      position: absolute;
+      z-index: 1;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      opacity: 0;
+      -webkit-transition: opacity 0.3s ease-in-out;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .picker {
+      font-size: 16px;
+      position: fixed !important;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      -webkit-user-select: none;
+      user-select: none;
+      overflow: hidden;
+      z-index: 9999999;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      -webkit-transform: translatey(100%);
+      transform: translatey(100%);
+      z-index: 2;
+      height: 230px;
+      width: 100%;
+      color: #333;
+      background: #ffffff;
+      z-index: 9999;
+      -webkit-transition: transform 0.3s ease-in-out;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .picker * {
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    .picker>header {
+      overflow: hidden;
+      width: 100%;
+      height: 50px;
+      font-size: 12px;
+      line-height: 50px;
+      text-align: center;
+      background: #ffffff;
+      -webkit-box-shadow: 0 -0.05rem 0.15rem 0 rgba(51, 51, 51, 0.3);
+      box-shadow: 0 -0.05rem 0.15rem 0 rgba(51, 51, 51, 0.3);
+      border-bottom: 2px solid #D0ECFF;
+    }
+
+    .picker>header>h3 {
+      display: inline-block;
+      font-size: 14px;
+      font-weight: normal;
+    }
+
+    .picker>header>button {
+      font-size: 16px;
+      height: 100%;
+      padding: 0 .48rem;
+      border: 0 none;
+      outline: 0 none;
+      color: #36A0E9;
+      background: #ffffff;
+    }
+
+    .picker>header .picker-cancel {
+      float: left;
+      color: #ABABAB;
+    }
+
+    .picker>header .picker-ok {
+      float: right;
+    }
+
+    .picker>div {
+      overflow: hidden;
+      height: 180px;
+      text-align: center;
+    }
+
+    .picker .picker-body {
+      position: relative;
+      display: -webkit-box;
+      display: -moz-box;
+      display: box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: -moz-flex;
+      display: flex;
+    }
+
+    .picker .picker-body>* {
+      display: block;
+      -webkit-box-flex: 1;
+      -moz-box-flex: 1;
+      -ms-flex: 1;
+      -webkit-flex: 1;
+      -moz-flex: 1;
+      flex: 1;
+    }
+
+    .picker .picker-col {
+      position: relative;
+      max-width: 43% !important;
+    }
+
+    .picker ul {
+      line-height: 36px;
+      font-size: 12px;
+    }
+
+    .picker ul>li {
+      height: 36px;
+      font-size: 15px;
+      color: #333;
+      padding: 0 .3rem !important;
+      margin: 0 !important;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .spaces {
+      display: inline-block;
+      width: 7px;
+    }
+
+    .picker .picker-mask-middle {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 20%;
+      pointer-events: none;
+      -webkit-transform: translatey(-50%);
+      transform: translatey(-50%);
+    }
+
+    .picker .picker-mask-middle::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1000%;
+      height: 1000%;
+      border-top: .1rem solid #ededed;
+      border-bottom: .1rem solid #ededed;
+      -webkit-transform: scale(0.1);
+      transform: scale(0.1);
+      -webkit-transform-origin: left top;
+      transform-origin: left top;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    .picker .picker-mask-top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 40%;
+      pointer-events: none;
+      background: rgba(255, 255, 255, .7);
+    }
+
+    .picker .picker-mask-bottom {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 40%;
+      pointer-events: none;
+      background: rgba(255, 255, 255, .7);
+    }
+
+    .picker.open {
+      -webkit-transform: translatey(0);
+      transform: translatey(0);
+    }
+
+    .picker.open+.picker-mask {
+      opacity: .4;
+    }
+
+    #picker-wrapper1 {
+      max-width: 20% !important;
+    }
+
+    #picker-wrapper2 {
+      max-width: 30% !important;
+      text-align: right;
+    }
+</style>
+</head>
+
+<body>
+
+
+<mip-shell-inservice mip-shell>
+  <script type="application/json">
+    {   
+      "isId": "1569699517752663",
+      "routes": [
+        {
+          "pattern": "www.lanxiniu.com/BaiduMip/order",
+          "meta": {
+            "header": {
+              "show": true,
+              "xiongzhang": true,
+              "title": "蓝犀牛搬家",
+              "logo": "https://www.lanxiniu.com/Public/baidumip/icon.png"
+            },
+            "view": {
+              "isIndex": true
+            }
+          }
+        },
+        {
+          "pattern": "www.lanxiniu.com/BaiduMip/mapout",
+          "meta": {
+            "header": {
+              "show": true,
+              "xiongzhang": true,
+              "title": "搬出地址"
+            },
+            "view": {
+              "isIndex": false
+            }
+          }
+        },
+        {
+          "pattern": "www.lanxiniu.com/BaiduMip/mapin",
+          "meta": {
+            "header": {
+              "show": true,
+              "xiongzhang": true,
+              "title": "搬入地址"
+            },
+            "view": {
+              "isIndex": false
+            }
+          }
+        },
+        {
+          "pattern": "www.lanxiniu.com/BaiduMip/payorder",
+          "meta": {
+            "header": {
+              "show": true,
+              "xiongzhang": true,
+              "title": "确认订单"
+            },
+            "view": {
+              "isIndex": false
+            }
+          }
+        },
+        {
+          "pattern": "www.lanxiniu.com/BaiduMip/city",
+          "meta": {
+            "header": {
+              "show": true,
+              "xiongzhang": true,
+              "title": "城市选择"
+            },
+            "view": {
+              "isIndex": false
+            }
+          }
+        },
+        {
+          "pattern": "www.lanxiniu.com/BaiduMip/userguide",
+          "meta": {
+            "header": {
+              "show": true,
+              "xiongzhang": true,
+              "title": "用户指南"
+            },
+            "view": {
+              "isIndex": false
+            }
+          }
+        },
+        {
+          "pattern": "www.lanxiniu.com/BaiduMip/myorder",
+          "meta": {
+            "header": {
+              "show": true,
+              "xiongzhang": true,
+              "title": "订单列表"
+            },
+            "view": {
+              "isIndex": false
+            }
+          }
+        },
+        {
+          "pattern": "www.lanxiniu.com/BaiduMip/listdetail",
+          "meta": {
+            "header": {
+              "show": true,
+              "xiongzhang": true,
+              "title": "订单详情"
+            },
+            "view": {
+              "isIndex": false
+            }
+          }
+        },
+        {
+          "pattern": "www.lanxiniu.com/BaiduMip/costdetail",
+          "meta": {
+            "header": {
+              "show": true,
+              "xiongzhang": true,
+              "title": "费用明细"
+            },
+            "view": {
+              "isIndex": false
+            }
+          }
+        },
+        {
+          "pattern": "www.lanxiniu.com/BaiduMip/costdes",
+          "meta": {
+            "header": {
+              "show": true,
+              "xiongzhang": true,
+              "title": "资费说明"
+            },
+            "view": {
+              "isIndex": false
+            }
+          }
+        },
+        {
+          "pattern": "*",
+          "meta": {
+            "header": {
+              "show": true,
+              "xiongzhang": true,
+              "title": "蓝犀牛搬家"
+            },
+            "view": {
+              "isIndex": false
+            }
+          }
+        }
+      ]
+    }
+  </script>
+</mip-shell-inservice>
+  <mip-data>
+    <script type="application/json">
+      {
+        "mipClickToken": "",
+        "userlogin": {
+          "sessionId": "",
+          "isLogin": false,
+          "userInfo": {
+            "uid": "",
+            "avatar": "",
+            "nickname": "未登录"
+          }
+        },
+        "#lxndata": {
+          "user": "未登录",
+          "currentmap": "",
+          "ordercity": "北京",
+          "carType": 3,
+          "orderTime": "",
+          "kilometer": 0,
+          "moveOutNum": "",
+          "remark": "",
+          "moveInNum": "",
+          "moveInAddress": {
+            "localtion": {
+              "address": "",
+              "city": "",
+              "province": "",
+              "lat": "",
+              "lng": "",
+              "title": ""
+            },
+            "address": "",
+            "phone": ""
+          },
+          "moveOutAddress": {
+            "localtion": {
+              "address": "",
+              "city": "",
+              "province": "",
+              "lat": "",
+              "lng": "",
+              "title": ""
+            },
+            "address": "",
+            "phone": ""
+          },
+          "order": ""
+        },
+        "config": {
+          "appid": "1569699517752663",
+          "clientId": "I0GQOQcU2hyeG8h44NsSWiHgjxDrP11e",
+          "id": "userlogin",
+          "autologin": false,
+          "endpoint": "//www.lanxiniu.com/Baidu/back",
+          "isGlobal": false
+        }
+      }
+    </script>
+  </mip-data>
+  <mip-inservice-login id="user" m-bind:config="config" on="login:order.login"></mip-inservice-login>
+  <mip-lxn-order id="order" m-bind:userlogin="userlogin" m-bind:globaldata="lxndata" m-bind:mip-click-token="mipClickToken" class="orders" on="actionName:user.login actionOrder:user.login(,actionPay) actionOrderList:user.login"></mip-lxn-order>
+  <mip-sidebar id="sidebar" layout="nodisplay" class="mip-hidden">
+    <ul class="slider-ul">
+      <li class="actives">
+        <p on="tap:order.userlogin">
+          <span class="img user_msg"></span>
+          <span m-text="userlogin.userInfo.nickname" id="username"></span>
+        </p>
+      </li>
+      <li class="actives">
+        <p on="tap:order.goorderlist" class="myorder">
+          <span class="img order"></span>
+          <span>我的订单</span>
+        </p>
+      </li>
+      <li class="actives">
+        <p on="tap:order.gocostdes" class="myorder">
+          <span class="img zifei"></span>
+          <span>资费说明</span>
+        </p>
+      </li>
+      <li class="actives">
+        <p on="tap:order.gouserguide" class="myorder">
+          <span class="img user_zhinan"></span>
+          <span>用户指南</span>
+        </p>
+      </li>
+      <li class="call actives">
+        <a data-type="mip" href="tel:4006785966">
+          <span class="call-img"></span>
+          <span class="text">联系客服</span>
+          <p class="times">8:00 - 20:00</p>
+        </a>
+      </li>
+    </ul>
+  </mip-sidebar>
+  <mip-stats-baidu>
+    <script type="application/json">
+      {
+        "token": "cea417114e1a5352c7643c937c3ccfee"
+      }
+    </script>
+  </mip-stats-baidu>
+  <script>
+    navigator.serviceWorker.register('/mip-sw.js').then(reg => {
+      console.log('----- register service worker success: ', reg)
+    }).catch(err => {
+      console.log('----- register service worker error: ', err)
+      // do nothing
+    })
+  </script>
+  <script src="https://c.mipcdn.com/static/v2/mip.js"></script>
+  <script src="https://c.mipcdn.com/static/v2/mip-shell-inservice/mip-shell-inservice.js"></script>
+  <script src="https://c.mipcdn.com/static/v1/mip-sidebar/mip-sidebar.js"></script>
+  <script src="https://c.mipcdn.com/static/v2/mip-inservice-login/mip-inservice-login.js"></script>
+  <script src="https://c.mipcdn.com/extensions/platform/v2/lanxiniu.com/mip-lxn-order/mip-lxn-order.js"></script>
+  <script src="https://c.mipcdn.com/static/v1/mip-stats-baidu/mip-stats-baidu.js"></script>
+</body>
+</html>
