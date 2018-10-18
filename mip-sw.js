@@ -7,6 +7,7 @@
 var CACHE_NAME = 'mip-sw-static-cache'
 
 self.MIP_SW_VERSION = '__BUILD_TIME__'
+self.MIP_SW_TAG = '__BUILD_TAG__'
 self.addEventListener('install', function () {
   self.skipWaiting()
 })

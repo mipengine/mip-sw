@@ -9,6 +9,11 @@ const zlib = require('zlib')
 const uglify = require('uglify-js')
 
 let distDir = path.resolve(__dirname, '..', 'dist')
+let buildTag = ''
+
+if (process.argv[2]) {
+  buildTag = process.argv[2]
+}
 
 if (!fs.existsSync(distDir)) {
   fs.mkdirp(distDir)
@@ -58,7 +63,9 @@ function getTimeVersion () {
 }
 
 let sourceCode = fs.readFileSync(path.resolve(__dirname, '..', 'mip-sw.js'), 'utf8')
-sourceCode = sourceCode.replace('__BUILD_TIME__', getTimeVersion())
+sourceCode = sourceCode
+  .replace('__BUILD_TIME__', getTimeVersion())
+  .replace('__BUILD_TAG__', buildTag)
 
 var minifiedCode = uglify.minify(sourceCode).code
 
