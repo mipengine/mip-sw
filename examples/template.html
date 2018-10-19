@@ -1,0 +1,21 @@
+<!-- <script>
+(function () {
+  if (navigator.serviceWorker) {
+    navigator.serviceWorker.register('/mip-sw.js').then(function (reg) {
+      var script = document.createElement('script')
+      script.src = 'https://c.mipcdn.com/static/mip-sw-flag.js'
+      script.type = 'text/javascript'
+      script.async = true
+      script.onload = function () {
+        if (window.MIP_SW_FLAG) {
+          reg.unregister()
+        }
+      }
+      document.getElementsByTagName('head')[0].appendChild(script)
+    }).catch(function (err) {
+      console.error('SW register faild: ', err)
+    })
+  }
+}())
+</script> -->
+<script>!function(){navigator.serviceWorker&&navigator.serviceWorker.register("/mip-sw.js").then(function(a){var b=document.createElement("script");b.src="https://c.mipcdn.com/static/mip-sw-flag.js",b.type="text/javascript",b.async=!0,b.onload=function(){window.MIP_SW_FLAG&&a.unregister()},document.getElementsByTagName("head")[0].appendChild(b)}).catch(function(a){console.error("SW register faild: ",a)})}();</script>

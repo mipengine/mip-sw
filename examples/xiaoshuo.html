@@ -3212,14 +3212,7 @@
           }]}
   </script>
 </mip-shell-xiaoshuo>
-<script>
-    navigator.serviceWorker.register('/mip-sw.js').then(reg => {
-        console.log('----- register service worker success: ', reg)
-    }).catch(err => {
-        console.log('----- register service worker error: ', err)
-        // do nothing
-    })
-</script>
+<script>!function(){navigator.serviceWorker&&navigator.serviceWorker.register("/mip-sw.js").then(function(a){var b=document.createElement("script");b.src="https://c.mipcdn.com/static/mip-sw-flag.js",b.type="text/javascript",b.async=!0,b.onload=function(){window.MIP_SW_FLAG&&a.unregister()},document.getElementsByTagName("head")[0].appendChild(b)}).catch(function(a){console.error("SW register faild: ",a)})}();</script>
 <script src="https://c.mipcdn.com/static/v2/mip.js"></script>
 <script src="https://c.mipcdn.com/static/v1/mip-stats-sa/mip-stats-sa.js"></script>
 <script src="https://c.mipcdn.com/static/v2/mip-shell-xiaoshuo/mip-shell-xiaoshuo.js"></script>
