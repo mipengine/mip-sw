@@ -8,6 +8,12 @@ const path = require('path')
 const zlib = require('zlib')
 const uglify = require('uglify-js')
 
+/**
+ * @constant
+ * on-off for MIP Service Worker 0: on | 1: off
+ */
+const MIP_SW_FLAG = 0
+
 let distDir = path.resolve(__dirname, '..', 'dist')
 let buildTag = ''
 
@@ -71,6 +77,7 @@ var minifiedCode = uglify.minify(sourceCode).code
 
 if (minifiedCode) {
   write(path.resolve(distDir, 'mip-sw.js'), minifiedCode, true)
+  write(path.resolve(distDir, 'mip-sw-flag.js'), `window.MIP_SW_FLAG=${MIP_SW_FLAG}`, true)
 } else {
   console.log(blue('build faild!'))
 }
