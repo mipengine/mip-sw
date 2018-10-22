@@ -41,9 +41,9 @@ self.addEventListener('fetch', function (event) {
     navigator.webkitConnection ||
     navigator.msConnection
 
-  var matchReg = /https?:\/\/(c\.mipcdn|mipcache\.bdstatic)\.com\/(static|extensions\/platform)\/v.*\.(js|css)/
+  var matchReg = /https?:\/\/(c\.mipcdn|mipcache\.bdstatic)\.com\/(static|extensions\/platform)\//
   var jetMatchReg = /https?:\/\/(jet\.bdstatic|c\.mipcdn)\.com\/byurl\?/
-  var mipPageReg = /https?:\/\/.*\.mipcdn\.com\/c\/|localhost/
+  var mipPageReg = /https?:\/\/.*\.mipcdn\.com\/[cir]\/|http:\/\/localhost/
 
   // @todo：网络策略以及兼容性有待调整
   if (connection) {
