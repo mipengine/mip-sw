@@ -43,6 +43,7 @@ self.addEventListener('fetch', function (event) {
 
   var matchReg = /https?:\/\/(c\.mipcdn|mipcache\.bdstatic)\.com\/(static|extensions\/platform)\/v.*\.(js|css)/
   var jetMatchReg = /https?:\/\/(jet\.bdstatic|c\.mipcdn)\.com\/byurl\?/
+  var mipPageReg = /https?:\/\/.*\.mipcdn\.com\/c\/|localhost/
 
   // @todo：网络策略以及兼容性有待调整
   if (connection) {
@@ -57,7 +58,7 @@ self.addEventListener('fetch', function (event) {
    * 弱网情况下才引入 service worker fetch 代理
    * 只是缓存 MIP 核心 JS 和 MIP 官方组件以及平台组件以及 JET 静态资源（@todo：策略待调整）
    */
-  if (netLevel > 0 && (matchReg.test(url) || jetMatchReg.test(url))) {
+  if (netLevel > 0 && (matchReg.test(url) || jetMatchReg.test(url) || mipPageReg.test(url))) {
     event.respondWith(
       caches.open(CACHE_NAME).then(function (cache) {
         return cache.match(event.request).then(function (response) {
