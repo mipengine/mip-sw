@@ -43,8 +43,8 @@ self.addEventListener('fetch', function (event) {
 
   var matchReg = /https?:\/\/(c\.mipcdn|mipcache\.bdstatic)\.com\/(static|extensions\/platform)\//
   var jetMatchReg = /https?:\/\/(jet\.bdstatic|c\.mipcdn)\.com\/byurl\?/
-  var mipPageReg = /https?:\/\/.*\.mipcdn\.com\/[cir]\/|http:\/\/localhost/
-  var mipSwReg = /mip-sw-.*\.js/
+  // var mipPageReg = /https?:\/\/.*\.mipcdn\.com\/[cir]\/|http:\/\/localhost/
+  var mipSwReg = /mip-sw-.*\.js|mip\.js|mip\.css/
 
   // @todo：网络策略以及兼容性有待调整
   if (connection) {
@@ -60,23 +60,17 @@ self.addEventListener('fetch', function (event) {
    * 只是缓存 MIP 核心 JS 和 MIP 官方组件以及平台组件以及 JET 静态资源（@todo：策略待调整）
    */
   if (netLevel > 0 &&
-    (matchReg.test(url) || jetMatchReg.test(url) || mipPageReg.test(url)) &&
+    (matchReg.test(url) || jetMatchReg.test(url) /* || mipPageReg.test(url) */) &&
     !mipSwReg.test(url)
   ) {
     event.respondWith(
       caches.open(CACHE_NAME).then(function (cache) {
         return cache.match(event.request).then(function (response) {
-          function getNetworkResponse () {
-            return fetch(event.request).then(function (response) {
-              cache.put(event.request, response.clone())
-              return response
-            })
-          }
-          if (response) {
-            setTimeout(getNetworkResponse)
-            return response
-          }
-          return getNetworkResponse()
+          let fetchPromise = fetch(event.request).then(function (networkResponse) {
+            cache.put(event.request, networkResponse.clone())
+            return networkResponse
+          })
+          return response || fetchPromise
         })
       })
     )
